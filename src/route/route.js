@@ -16,6 +16,9 @@ import Contact from "../components/pages/contact/contact";
 import TermsOfUse from "../components/pages/legal/termOfUse";
 import ScrollToTop from "../components/Extra/scrollToTop";
 import TermCondiition from "../components/pages/legal/termCondiition";
+import Search from "../components/pages/search/search";
+import Account from "../components/pages/account/account";
+import Checkout from "../components/pages/checkout/checkout";
 
 
 const AccessComponent = () => {
@@ -35,6 +38,9 @@ const AccessComponent = () => {
           <Route path="/term&condition" element={<TermCondiition />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Detail />} />
           <Route path="/admin/data" element={<ShowData />} />

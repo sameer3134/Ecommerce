@@ -15,8 +15,6 @@ const Product = () => {
     console.log(data.data)
   }, [data]);
 
-  console.log("S", prod.data);
-  console.log(data.data)
   return (
     <div>
       <section className=" px-5 py-6 body-font">

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CartState } from "../context/Context";
 import logo from "../assets/logo.png";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../components/Admin/firebase/setup";
+import LoginModal from "../components/pages/account/loginModal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const { state: { cart } } = CartState();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -16,10 +21,20 @@ const Navbar = () => {
   ];
 
 
+
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
   const categories = ["Dresses", "Tops", "Bottoms", "Ethnic Wear", "Activewear", "Accessories"];
+
+  // Listen for authentication state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, []);
   return (
     <>
       {/* Top Navbar for Larger Screens */}
@@ -60,16 +75,50 @@ const Navbar = () => {
 
             {/* Right Section: Search, Cart, and Mobile Menu */}
             <div className="flex items-center">
-              <div className="hidden md:block relative bg-lightIvory">
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="w-48 px-4 py-2  text-stone-400  focus:outline-none focus:ring-2 focus:ring-stone-500"
-                />
-              </div>
+  {user ? (
+        // If user is logged in, show user info and logout button
+        <Link to="/account" className="flex-shrink-0 ">
+        <div className="flex flex-col items-center space-y-4 border rounded-lg border-gray-900 px-2">
+          <p className="text-lg text-gray-700 font-medium">Hi, {user.displayName || user.email}</p>
+        </div></Link>
+      ) : (
+
+<button className="flex-shrink-0 " onClick={()=>{setIsLoginOpen(true)}}>
+  <svg
+    className="w-7 h-7 text-black hover:bg-backgroundColor rounded-full hover:text-gray-700 transition-colors duration-200"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6h12c0-3.31-2.69-6-6-6z"
+    />
+  </svg>
+</button>)}
+<Link to="/search" className="flex-shrink-0 hidden md:block mx-3">
+  <svg
+    className="w-6 h-6 text-black hover:bg-backgroundColor rounded-full hover:text-gray-700 transition-colors duration-200"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"
+    />
+  </svg>
+</Link> 
+
 
               {/* Cart Icon */}
-              <Link to="/cart" className="relative p-2 hidden md:block text-gray-700 hover:text-stone-600 mx-4">
+              <Link to="/cart" className="relative hidden md:block text-gray-700 hover:text-stone-600">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -79,7 +128,7 @@ const Navbar = () => {
                   />
                 </svg>
                 {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-800 text-white text-xs rounded-full px-1.5 py-0.5">
+                  <span className="absolute top-0 right-0 bg-red-800 text-white text-xs rounded-full px-1 py-0.5">
                     {cart.length}
                   </span>
                 )}
@@ -160,7 +209,7 @@ const Navbar = () => {
           </Link>
 
           <Link to="/cart" className="relative flex flex-col items-center  hover:text-stone-400">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
             {cart.length > 0 && (
@@ -184,6 +233,7 @@ const Navbar = () => {
           </nav>
         </div>
       </div>
+      {isLoginOpen && <LoginModal  reset={()=>{setIsLoginOpen(false)}}/>}
     </>
   );
 };

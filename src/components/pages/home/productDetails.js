@@ -10,16 +10,16 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null); // State to hold the product
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   // Use useEffect to find the product once data is available
+
   useEffect(() => {
       const foundProduct = data?.find((p) => p.id === id);
       setProduct(foundProduct); // Set the product in stat
-    console.log("m",data)
+      setRelatedProducts(data?.filter((p) => p.id !== foundProduct.id).slice(0, 4))
   }, [data, id]); // Re-run when `data` or `id` changes
-
-  // Filter related products (excluding the current product)
-  const relatedProducts = data?.data ? data.data.filter((p) => p.id !== product.id).slice(0, 4) : [];
+console.log(relatedProducts)
 
   return (
     <section className="text-gray-600 body-font overflow-hidden bg-lightIvory">

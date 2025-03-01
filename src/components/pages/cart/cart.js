@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CartState } from "../../../context/Context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../Admin/firebase/setup";
+import LoginModal from "../account/loginModal";
 
 const Cart = () => {
   const { state: { cart }, dispatch } = CartState();
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const navigate= useNavigate()
 
   // Calculate total price
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe(); // Cleanup on unmount
+  }, []);
+
+  const handleCheckout=()=>{
+    if(user){
+      navigate("/checkout")
+    }else{
+      setIsLoginOpen(true)
+    }
+  }
 
   return (
     <div className="container font-playfair mx-auto px-4 py-8 text-stone-800 bg-lightIvory">
@@ -115,12 +137,14 @@ const Cart = () => {
             <button
               className="w-full mt-6 py-3 rounded-md text-white font-semibold bg-red-800 hover:bg-red-900 transition-colors duration-200"
               disabled={cart.length === 0}
+              onClick={handleCheckout}
             >
               Proceed to Checkout
             </button>
           </div>
         )}
       </div>
+      {isLoginOpen && <LoginModal reset={()=>{setIsLoginOpen(false)}}/>}
     </div>
   );
 };
