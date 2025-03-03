@@ -52,6 +52,9 @@ const Footer = () => {
             <li>
               <Link class="text-gray-600 hover:text-gray-800" to="/contact">Contact Us</Link>
             </li>
+            <li>
+              <Link class="text-gray-600 hover:text-gray-800" to="/admin/data">Admin</Link>
+            </li>
           </nav>
         </div>
         <div class="lg:w-1/3 md:w-1/3 w-full px-4">
