@@ -14,7 +14,7 @@ const Product = () => {
     }
     console.log(data.data)
   }, [data]);
-
+console.log(data)
   return (
     <div>
       <section className=" px-5 py-6 body-font">

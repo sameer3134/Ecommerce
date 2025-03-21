@@ -8,10 +8,9 @@ const Auth = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const adminEmail = "mohdsameer3134@gmail.com"; // Replace with your email
-
+        const adminEmail = process.env.REACT_APP_LOGIN;
         if (email === adminEmail) {
-            localStorage.setItem("adminAuth", "true"); // Store authentication
+            sessionStorage.setItem("adminAuth", "true"); // Store authentication
             navigate("/admin/data"); // Redirect to admin panel
         } else {
             setError("Unauthorized email! Access denied.");

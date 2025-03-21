@@ -3,13 +3,13 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDktd0ajWwue7SW8O6FL1PLHkitYjcUUs4",
-  authDomain: "e-commerce-ad213.firebaseapp.com",
-  projectId: "e-commerce-ad213",
-  storageBucket: "e-commerce-ad213.appspot.com",
-  messagingSenderId: "929305349743",
-  appId: "1:929305349743:web:601ac98f674a267be8079a",
-  measurementId: "G-SBERSQ3XH2"
+  apiKey: "AIzaSyCS_PIIzxFeesre-OARYS5IKuu7SBnpYNY",
+  authDomain: "kashika-4516f.firebaseapp.com",
+  projectId: "kashika-4516f",
+  storageBucket: "kashika-4516f.firebasestorage.app",
+  messagingSenderId: "899640913302",
+  appId: "1:899640913302:web:d5a7873fc8ec5ce20341b7",
+  measurementId: "G-0YFWCCP11M"
 };
 
 // Initialize Firebase

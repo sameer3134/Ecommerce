@@ -93,7 +93,7 @@ const Address = ({ onAddressSubmit }) => {
   };
 
   return (
-    <div className="flex   text-stone-800">
+    <div className="flex mt-4  text-stone-800">
       <form onSubmit={handleSubmit} className="bg-darkIvory rounded-lg p-2 w-full  border border-gray-200">
         <div className="container mx-auto ">
           <div className="text-left mb-6">

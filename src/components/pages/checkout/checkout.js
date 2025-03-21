@@ -54,7 +54,7 @@ const Checkout = () => {
       items: cart,
       totalAmount: totalPrice.toFixed(2),
       paymentMode,
-      orderStatus: "Pending", // Default status
+      orderStatus: "Processing", // Default status
       timestamp: new Date(),
     };
 
