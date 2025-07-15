@@ -49,6 +49,7 @@ const Navbar = () => {
 
     return () => unsubscribe(); // Cleanup on unmount
   }, []);
+  console.log("S",user)
   return (
     <>
       {/* Top Navbar for Larger Screens */}
@@ -61,7 +62,7 @@ const Navbar = () => {
         {user ? (
           <Link to="/account" className="flex items-center space-x-2">
             <div className="border rounded-lg border-gray-900 px-2">
-              <p className="text-lg text-gray-700 font-medium">Hi, {user?.displayName || user?.email}</p>
+              <p className="text-lg text-gray-700 font-medium">Hi, {user?.displayName?.split(" ")[0] || user?.email}</p>
             </div>
           </Link>
         ) : (

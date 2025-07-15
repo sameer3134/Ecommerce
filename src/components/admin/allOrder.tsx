@@ -19,6 +19,14 @@ const AllOrder = () => {
         id: doc.id, // Document ID
         ...doc.data(),
       }));
+       // Sort by timestamp descending
+    const sortedOrders = ordersData.sort((a: any, b: any) => {
+      const timeA = a.timestamp?.toDate?.() || new Date(0);
+      const timeB = b.timestamp?.toDate?.() || new Date(0);
+      return timeB.getTime() - timeA.getTime();
+    });
+
+    setOrders(sortedOrders as OrderType[]);
       setOrders(ordersData as OrderType[]);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -27,10 +35,14 @@ const AllOrder = () => {
 
   // Function to update order status
   const updateOrderStatus = async (orderId : string, currentStatus: string ) => {
+    console.error(currentStatus)
     let newStatus = "";
-    if (currentStatus === "Pending") newStatus = "Dispatched";
+      if (currentStatus === "Processing" || currentStatus === "Pending") newStatus = "Dispatched";
     else if (currentStatus === "Dispatched") newStatus = "Delivered";
-    else return;
+    else {
+    console.warn("Unknown status — no update made");
+    return;
+  }
 
     try {
       const orderRef = doc(db, "orders", orderId);
@@ -93,9 +105,10 @@ const displayDate = (timestamp: any) => {
                         e.stopPropagation();
                         updateOrderStatus(order.id, order.orderStatus);
                       }}
-                      className="bg-blue-500 text-white px-3 py-1 rounded-md"
+                      className=" text-red-500 underline px-3 py-1 rounded-md"
                     >
-                      {order.orderStatus === "Pending" ? "Mark as Dispatched" : "Mark as Delivered"}
+                      {/* {order.orderStatus === "Pending" ? "Mark as Dispatched" : "Mark as Delivered"} */}
+                      change status
                     </button>
                   )}
                 </td>

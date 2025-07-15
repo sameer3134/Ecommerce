@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { store } from './components/redux/store/configureStore';
 import { Provider } from 'react-redux';
 import Context from './components/context/context';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

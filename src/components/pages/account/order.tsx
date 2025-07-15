@@ -70,7 +70,12 @@ const Order = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      setOrders(ordersData as OrderType[]);
+       const sortedOrders = ordersData.sort((a: any, b: any) => {
+      const timeA = a.timestamp?.toDate?.() || new Date(0);
+      const timeB = b.timestamp?.toDate?.() || new Date(0);
+      return timeB.getTime() - timeA.getTime();
+    });
+      setOrders(sortedOrders as OrderType[]);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

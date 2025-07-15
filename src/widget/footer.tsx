@@ -52,9 +52,9 @@ const Footer = () => {
             <li>
               <Link className="text-gray-600 hover:text-gray-800" to="/contact">Contact Us</Link>
             </li>
-            <li>
+            {/* <li>
               <Link className="text-gray-600 hover:text-gray-800" to="/admin/data">Admin</Link>
-            </li>
+            </li> */}
           </nav>
         </div>
         <div className="lg:w-1/3 md:w-1/3 w-full px-4">
