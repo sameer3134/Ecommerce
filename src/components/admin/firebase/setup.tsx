@@ -14,16 +14,16 @@ import {
 import { getFirestore } from "firebase/firestore";
 
 // ✅ Your Firebase Config
-const firebaseConfig = {
-  apiKey: "AIzaSyCS_PIIzxFeesre-OARYS5IKuu7SBnpYNY",
-  authDomain: "kashika-4516f.firebaseapp.com",
-  projectId: "kashika-4516f",
-  storageBucket: "kashika-4516f.appspot.com",
-  messagingSenderId: "899640913302",
-  appId: "1:899640913302:web:d5a7873fc8ec5ce20341b7",
-  measurementId: "G-0YFWCCP11M"
-};
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAe0pUwXt3IhMZ4QU9lFyK8R7hzrDPy4rw",
+  authDomain: "kashika-deda4.firebaseapp.com",
+  projectId: "kashika-deda4",
+  storageBucket: "kashika-deda4.firebasestorage.app",
+  messagingSenderId: "613140894114",
+  appId: "1:613140894114:web:4c754d222061b73d1462fb",
+  measurementId: "G-6KBCE0YSFW"
+};
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
